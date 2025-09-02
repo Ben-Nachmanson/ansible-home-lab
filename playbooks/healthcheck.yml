@@ -1,0 +1,40 @@
+---
+- name: Health Check All Systems
+  hosts: all
+  gather_facts: yes
+  
+  tasks:
+    - name: Check system uptime
+      command: uptime
+      register: system_uptime
+      changed_when: false
+    
+    - name: Display uptime
+      debug:
+        msg: "{{ inventory_hostname }}: {{ system_uptime.stdout }}"
+    
+    - name: Check disk usage
+      shell: df -h /
+      register: disk_usage
+      changed_when: false
+    
+    - name: Display disk usage
+      debug:
+        msg: "{{ inventory_hostname }} disk usage: {{ disk_usage.stdout_lines[1] }}"
+    
+    - name: Check memory usage
+      shell: free -h
+      register: memory_usage
+      changed_when: false
+    
+    - name: Display memory usage
+      debug:
+        msg: "{{ inventory_hostname }} memory: {{ memory_usage.stdout_lines[1] }}"
+    
+    - name: Check if services are running
+      service_facts:
+    
+    - name: Check SSH service
+      debug:
+        msg: "SSH service is {{ ansible_facts.services['ssh.service'].state | default('not found') }}"
+      when: "'ssh.service' in ansible_facts.services"

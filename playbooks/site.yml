@@ -1,0 +1,22 @@
+---
+- name: Configure Home Lab Infrastructure
+  hosts: all
+  become: yes
+  gather_facts: yes
+  
+  roles:
+    - common
+
+- name: Configure Web Servers
+  hosts: webservers
+  become: yes
+  
+  roles:
+    - nginx
+
+- name: Configure Docker Hosts
+  hosts: docker_hosts
+  become: yes
+  
+  roles:
+    - docker

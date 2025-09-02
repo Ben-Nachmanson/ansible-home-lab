@@ -1,0 +1,26 @@
+---
+- name: Configure Docker Hosts
+  hosts: docker_hosts
+  become: yes
+  gather_facts: yes
+  
+  roles:
+    - docker
+  
+  post_tasks:
+    - name: Ensure Docker is started and enabled
+      service:
+        name: docker
+        state: started
+        enabled: yes
+    
+    - name: Add users to docker group
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
+    
+    - name: Test Docker installation
+      command: docker --version
+      changed_when: false
+      become_user: "{{ ansible_user }}"

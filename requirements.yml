@@ -1,0 +1,16 @@
+---
+# External role dependencies
+roles:
+  - name: geerlingguy.security
+    version: 2.0.1
+  
+  - name: geerlingguy.firewall
+    version: 2.6.0
+
+# Collections
+collections:
+  - name: community.general
+    version: ">=4.0.0"
+  
+  - name: ansible.posix
+    version: ">=1.0.0"
