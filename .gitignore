@@ -1,0 +1,28 @@
+inventory.yml
+.env
+
+# SSH Keys and Certificates
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+id_ecdsa*
+ssh_config
+
+# Ansible Vault files
+vault.yml
+vault_*.yml
+.vault_pass
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+.DS_Store
+
+# Logs
+*.log
+ansible.log

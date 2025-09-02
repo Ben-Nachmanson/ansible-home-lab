@@ -1,0 +1,25 @@
+---
+- name: Simple Hello World Playbook
+  hosts: all
+  gather_facts: yes
+  
+  tasks:
+    - name: Say hello
+      debug:
+        msg: "Hello World from {{ inventory_hostname }}!"
+    
+    - name: Show basic system info
+      debug:
+        msg: |
+          Server: {{ inventory_hostname }}
+          User: {{ ansible_user | default('unknown') }}
+          OS: {{ ansible_facts['distribution'] | default('Unknown') }}
+      
+    - name: uptime
+      command: uptime
+      register: result
+      changed_when: false
+    
+    - name: Display file content
+      debug:
+        msg: "{{ result.stdout }}"
