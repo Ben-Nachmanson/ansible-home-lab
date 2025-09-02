@@ -1,9 +1,0 @@
----
-- name: restart ssh
-  service:
-    name: ssh
-    state: restarted
-
-- name: update motd
-  command: update-motd
-  when: ansible_os_family == "Debian"
